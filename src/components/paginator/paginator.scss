@@ -1,28 +1,111 @@
-$textPrimaryColor: blue;
-$textDarkColor: #000;
-$bgPrimaryLightColor: lighten($textPrimaryColor, 33%);
+$primaryColor: #4673fc; // text
+$secondaryColor: rgb(235, 0, 0); // currentpage text and border
+$primaryLightColor: lighten($primaryColor, 33%);
+$secondaryLightColor: lighten($secondaryColor, 33%); // (hover focus active) elements color
 
 
 .pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 8px 0;
+    &__list{
+        display: flex;
+        gap: 5px;
+        padding: 0 5px;
+    }
     &__item {
-        margin-right: 5px;
-        color: $textPrimaryColor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        color: $primaryColor;
         cursor: pointer;
+        outline: none;
+        user-select: none;
+        transition: all 0.3s;
         &:nth-last-child(1) {
             margin-right: 0;
         }
+        &:hover {
+            border-bottom: 1px solid $secondaryLightColor;
+        }
+        &:focus {
+            border-bottom: 1px solid $secondaryLightColor;
+        }
         &_active {
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 20px;
-            color: $textDarkColor;
-            border-bottom: 2px solid $bgPrimaryLightColor;
+            color: $secondaryColor;
+            border: 1px solid $secondaryLightColor;
         }
     }
-    &__prev-arrow, &__next-arrow{
-        height: 22px;
+    &__btn-stub {
+        width: 25px;
+        height: 25px;
+        background-color: transparent;
+    }
+    &__prev-btn, &__next-btn {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        user-select: none;
+        cursor: pointer;
+    }
+    &__prev-btn:focus, &__next-btn:focus {
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            width: 17px;
+            height: 1px;
+            background-color: $secondaryLightColor;
+            border-radius: 40%;
+        }
+    }
+    &__prev-btn:focus {
+        &:before {
+            top: 6px;
+            left: -4px;
+            transform: rotate(-45deg);
+        }
+        &:after {
+            bottom: 6px;
+            left: -4px;
+            transform: rotate(45deg);
+        }
+    }
+    &__next-btn:focus {
+        &:before {
+            top: 6px;
+            right: -4px;
+            transform: rotate(45deg);
+        }
+        &:after {
+            bottom: 6px;
+            right: -4px;
+            transform: rotate(-45deg);
+        }
+    }
+
+
+    &__prev-arrow, &__next-arrow {
+        height: 100%;
+        user-drag: none;
+        -webkit-user-drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
     }
 }

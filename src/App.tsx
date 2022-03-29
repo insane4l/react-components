@@ -1,5 +1,5 @@
 import React from 'react';
-import Paginator from './components/paginator/paginator';
+import { Paginator } from './components/paginator/Paginator';
 
 function App() {
 	return (
