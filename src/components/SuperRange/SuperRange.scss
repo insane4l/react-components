@@ -1,0 +1,214 @@
+/* SOME OPTIONS */
+$SR-slider_border-height: 1px;
+$SR-slider_body-height: 6px;
+$SR-slider_bg-color: #222327;
+$SR-slider_border-color: rgba(255, 255, 255, 0.8);
+
+$SR-range_selected-bg-color: #29fd53;
+
+$SR-slider_point-diameter: 22px;
+$SR-slider_point-bg-color: #fff;
+$SR-slider_point-bg-image: radial-gradient(circle farthest-side at right, rgb(255, 153, 0), rgb(28, 243, 225));
+$SR-slider_point-border: none;
+$SR-slider_point-active-shadow: rgba(25, 118, 210, .16) 0px 0px 0px 8px;
+
+
+
+
+/* SLIDER WRAPPER (custom range track)*/
+/* todo: change width */
+.superRange__slider-wrapper {
+    position: relative;
+	z-index: 4;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: calc(#{$SR-slider_body-height} + (#{$SR-slider_border-height} * 2));
+	margin: 0 calc(#{$SR-slider_point-diameter} / 2);
+	background-color: $SR-slider_bg-color;
+	border: $SR-slider_border-height solid $SR-slider_border-color;
+	border-radius: 6px;
+}
+
+
+
+/* SELECTED RANGE LINE */
+.superRange__selected_line {
+	position: absolute;
+	z-index: 6;
+    top: 0;
+    left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $SR-range_selected-bg-color;
+	border-radius: 6px;
+}
+
+
+
+/* RANGE INPUT */
+/* crossbrowser reset/normalize default view */
+.superRange__input {
+	-webkit-appearance: none; // Hides default input 
+	position: absolute; //!!!!!! Leave the default z-index value of the INPUTS
+	top: 0;
+	width: calc(100% + #{$SR-slider_point-diameter});
+	height: 100%; // slider points - align center
+	margin: 0; // clear default margins
+	background-color: transparent; // Otherwise bg in Chrome (default white)
+	cursor: pointer;
+}
+
+/* for Internet Explorer */
+.superRange__input::-ms-track {
+	width: 100%;
+	cursor: pointer;
+	background: transparent;  // hides default slider track
+	border-color: transparent;  // hides default slider track
+	color: transparent;  // hides default slider track
+}
+
+/* cleanup input outline (slider points will be highlighted on input focus) */
+.superRange__input:focus {
+	outline: none;
+}
+
+
+
+/* SLIDER POINT */
+.superRange__input::-webkit-slider-thumb {
+	-webkit-appearance: none; // Hides default slider point (Chrome, Safari, Opera)
+}
+
+/* crossbrowser customize slider point */
+.superRange__input::-webkit-slider-thumb { // Chrome, Safari, Opera
+	position: relative;
+	z-index: 22; // !!!!!!! Changed z-index value of the SLIDER POINT
+	width: $SR-slider_point-diameter;
+	height: $SR-slider_point-diameter;
+    border: $SR-slider_point-border;
+	border: 100%;
+	border-radius: 100%;
+	background-color: $SR-slider_point-bg-color;
+    background-image: $SR-slider_point-bg-image;
+	box-shadow: 0px 0px 6px #999, 1px 1px 8px #666;
+	cursor: pointer;
+}
+.superRange__input:focus::-webkit-slider-thumb {
+	box-shadow: $SR-slider_point-active-shadow;
+}
+.superRange__input:hover::-webkit-slider-thumb {
+	box-shadow: $SR-slider_point-active-shadow;
+}
+
+
+.superRange__input::-moz-range-thumb { // Mozilla Firefox
+	position: relative;
+	z-index: 22; // !!!!!!! Changed z-index value of the SLIDER POINT
+	width: $SR-slider_point-diameter;
+	height: $SR-slider_point-diameter;
+    border: $SR-slider_point-border;
+	border: 100%;
+	border-radius: 100%;
+	background-color: $SR-slider_point-bg-color;
+    background-image: $SR-slider_point-bg-image;
+	box-shadow: 0px 0px 6px #999, 1px 1px 8px #666;
+	cursor: pointer;
+}
+.superRange__input:focus::-moz-range-thumb {
+	box-shadow: $SR-slider_point-active-shadow;
+}
+.superRange__input:hover::-moz-range-thumb {
+	box-shadow: $SR-slider_point-active-shadow;
+}
+
+
+.superRange__input::-ms-thumb {  // Internet Explorer 
+	position: relative;
+	z-index: 22; // !!!!!!! Changed z-index value of the SLIDER POINT 
+	width: $SR-slider_point-diameter;
+	height: $SR-slider_point-diameter;
+    border: $SR-slider_point-border;
+	border: 100%;
+	border-radius: 100%;
+	background-color: $SR-slider_point-bg-color;
+    background-image: $SR-slider_point-bg-image;
+	box-shadow: 0px 0px 6px #999, 1px 1px 8px #666;
+	cursor: pointer;
+} 
+.superRange__input:focus::-ms-thumb {
+	box-shadow: $SR-slider_point-active-shadow;
+}
+.superRange__input:hover::-ms-thumb {
+	box-shadow: $SR-slider_point-active-shadow;
+}
+
+
+
+
+
+/* CUSTOM RANGE VALUE INDICATOR */
+.superRange__value_indicator {
+    position: absolute;
+    transform: translateX(-50%);
+    bottom: 0;
+    bottom: calc( 8px + ( ( #{$SR-slider_body-height} + #{$SR-slider_point-diameter} ) / 2) );
+	color: #fff;
+	opacity: 0;
+	user-select: none;
+	transition: opacity .5s;
+}
+
+.superRange__value_indicator div {
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: rgba(117, 117, 117, .6);
+}
+
+.superRange__value_indicator div::after {
+    content: ''; 
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top: 5px solid rgba(117, 117, 117, .6);
+}
+.superRange__input:focus + .superRange__value_indicator { 
+	opacity: 1;
+}
+.superRange__input:hover + .superRange__value_indicator { 
+	opacity: 1;
+}
+
+
+
+
+
+
+
+/* Crossbrowser reset for input range track styles */
+.superRange__input::-webkit-slider-runnable-track,
+.superRange__input::-moz-range-track,
+.superRange__input::-ms-track {
+	width: 100%;
+	background: transparent;
+}
+
+.superRange__input::-ms-fill-lower,
+.superRange__input::-ms-fill-upper {
+	background: transparent;
+}
+
+.superRange__input:focus::-ms-fill-lower,
+.superRange__input:focus::-ms-fill-upper {
+	background: transparent;
+}
+
+.superRange__input:focus::-webkit-slider-runnable-track {
+	background-color: transparent;
+}
+
+
+
