@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { SuperRange } from './SuperRange';
+import { SuperDoubleRange } from './SuperDoubleRange';
 
 
 export default {
-  title: 'Components/RangeInput/SingleRange',
-  component: SuperRange,
+  title: 'Components/RangeInput/DoubleRange',
+  component: SuperDoubleRange,
 //   argTypes: {
 //     backgroundColor: { control: 'color' },
 //   },
-} as ComponentMeta<typeof SuperRange>;
+} as ComponentMeta<typeof SuperDoubleRange>;
 
 
-const Template: ComponentStory<typeof SuperRange> = (args) => <SuperRange {...args} />;
+const Template: ComponentStory<typeof SuperDoubleRange> = (args) => <SuperDoubleRange {...args} />;
+
+
+
 
 export const Uncontrolled = Template.bind({});
 Uncontrolled.args = {
     max: 200
 };
-
-
 
 export const Controlled = Template.bind({});
 Controlled.args = {
@@ -30,5 +31,5 @@ Controlled.args = {
 export const ControlledWithValueIndicator = Template.bind({});
 ControlledWithValueIndicator.args = {
     // todo: create local state.. (reed new storybook documentation)
-    withValueIndicator: true
+    withValueIndicators: true
 };

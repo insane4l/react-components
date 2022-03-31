@@ -1,0 +1,219 @@
+/* 
+Elements position structure
+-> range inputs <none zIndex> (static positioning)
+    ->  slider wrapper <zIndex 4> 
+        ->  slider selected range line <zIndex 6>
+            ->  slider points <zIndex 22>
+*/
+
+
+/* SOME OPTIONS */
+$SDR-slider_border-height: 1px;
+$SDR-slider_body-height: 4px;
+$SDR-slider_bg-color: #222327;
+$SDR-slider_border-color: rgba(255, 255, 255, 0.8);
+$SDR-range_selected-bg-color: #29fd53;
+$SDR-slider_point-diameter: 18px;
+$SDR-slider_point-bg-color: #444;
+$SDR-slider_point-bg-image: none;
+$SDR-slider_point-border: 1px solid rgba(255, 255, 255, .3);
+$SDR-slider_point-active-shadow: rgba($SDR-slider_point-bg-color, .16) 0px 0px 0px 8px;
+
+
+
+
+/* SLIDER WRAPPER (custom range track) */
+.superDoubleRange__slider-wrapper {
+	position: relative;
+	z-index: 4;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: calc(#{$SDR-slider_body-height} + (#{$SDR-slider_border-height} * 2));
+	margin: 0 calc(#{$SDR-slider_point-diameter} / 2);
+	background-color: $SDR-slider_bg-color;
+	border: $SDR-slider_border-height solid $SDR-slider_border-color;
+	border-radius: 6px;
+}
+
+
+
+/* SELECTED RANGE LINE */
+.superDoubleRange__selected-line {
+	position: absolute;
+	z-index: 6;
+	top: 0;
+    left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $SDR-range_selected-bg-color;
+	border-radius: 6px;
+}
+
+
+
+/* RANGE INPUTS */
+/* crossbrowser reset/normalize default view */
+.superDoubleRange__input {
+	-webkit-appearance: none; // Hides default inputs
+	position: absolute; //!!!!!! Leave the default z-index value of the INPUTS
+	top: 0;
+	width: calc(100% + #{$SDR-slider_point-diameter});
+	height: 100%; // slider points - align center
+	margin: 0; // clear default margins
+	background-color: transparent; // Otherwise bg in Chrome (default white)
+	cursor: pointer;
+}
+
+
+ .superDoubleRange__input::-ms-track { // Internet Explorer
+	width: 100%;
+	cursor: pointer;
+	background: transparent; // hides default slider track
+	border-color: transparent; // hides default slider track
+	color: transparent; // hides default slider track
+}
+
+/* cleanup input outline (slider points will be highlighted on input focus) */
+.superDoubleRange__input:focus {
+	outline: none;
+}
+
+
+
+
+/* SLIDER POINTS */
+.superDoubleRange__input::-webkit-slider-thumb {
+	-webkit-appearance: none; // Hides default slider points (Chrome, Safari, Opera)
+}
+
+/* crossbrowser customize slider points*/
+.superDoubleRange__input::-webkit-slider-thumb { // Chrome, Safari, Opera
+	position: relative;
+	z-index: 22; // !!!!!!! Changed z-index value of the SLIDER POINTS
+	width: $SDR-slider_point-diameter;
+	height: $SDR-slider_point-diameter;
+    border: $SDR-slider_point-border;
+	border: 100%;
+	border-radius: 100%;
+	background-color: $SDR-slider_point-bg-color;
+    background-image: $SDR-slider_point-bg-image;
+	box-shadow: 0px 0px 6px #999, 1px 1px 8px #666;
+	cursor: pointer;
+}
+.superDoubleRange__input:focus::-webkit-slider-thumb {
+	box-shadow: $SDR-slider_point-active-shadow;
+}
+.superDoubleRange__input:hover::-webkit-slider-thumb {
+	box-shadow: $SDR-slider_point-active-shadow;
+}
+
+
+.superDoubleRange__input::-moz-range-thumb { // Mozilla Firefox
+	position: relative;
+	z-index: 22; // !!!!!!! Changed z-index value of the SLIDER POINTS
+	width: $SDR-slider_point-diameter;
+	height: $SDR-slider_point-diameter;
+    border: $SDR-slider_point-border;
+	border: 100%;
+	border-radius: 100%;
+	background-color: $SDR-slider_point-bg-color;
+    background-image: $SDR-slider_point-bg-image;
+	box-shadow: 0px 0px 6px #999, 1px 1px 8px #666;
+	cursor: pointer;
+}
+.superDoubleRange__input:focus::-moz-range-thumb {
+	box-shadow: $SDR-slider_point-active-shadow;
+}
+.superDoubleRange__input:hover::-moz-range-thumb {
+	box-shadow: $SDR-slider_point-active-shadow;
+}
+
+
+.superDoubleRange__input::-ms-thumb {  // Internet Explorer 
+	position: relative;
+	z-index: 22; // !!!!!!! Changed z-index value of the SLIDER POINTS 
+	width: $SDR-slider_point-diameter;
+	height: $SDR-slider_point-diameter;
+    border: $SDR-slider_point-border;
+	border: 100%;
+	border-radius: 100%;
+	background-color: $SDR-slider_point-bg-color;
+    background-image: $SDR-slider_point-bg-image;
+	box-shadow: 0px 0px 6px #999, 1px 1px 8px #666;
+	cursor: pointer;
+} 
+.superDoubleRange__input:focus::-ms-thumb {
+	box-shadow: $SDR-slider_point-active-shadow;
+}
+.superDoubleRange__input:hover::-ms-thumb {
+	box-shadow: $SDR-slider_point-active-shadow;
+}
+
+
+
+
+
+/* CUSTOM RANGE VALUE INDICATOR */
+.superDoubleRange__value-indicator {
+    position: absolute;
+    transform: translateX(-50%);
+    bottom: 0;
+    bottom: calc( 8px + ( ( #{$SDR-slider_body-height} + #{$SDR-slider_point-diameter} ) / 2) );
+	color: #fff;
+	opacity: 0;
+	user-select: none;
+	transition: opacity .5s;
+}
+
+.superDoubleRange__value-indicator div {
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: rgba(117, 117, 117, .6);
+}
+
+.superDoubleRange__value-indicator div::after {
+    content: ''; 
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top: 5px solid rgba(117, 117, 117, .6);
+}
+.superDoubleRange__input:focus + .range__value-indicator { 
+	opacity: 1;
+}
+.superDoubleRange__input:hover + .range__value-indicator { 
+	opacity: 1;
+}
+
+
+
+
+
+
+
+
+/* Crossbrowser reset for input range track styles */
+.superDoubleRange__input::-webkit-slider-runnable-track,
+.superDoubleRange__input::-moz-range-track,
+.superDoubleRange__input::-ms-track {
+	width: 100%;
+	background: transparent;
+}
+
+.superDoubleRange__input::-ms-fill-lower,
+.superDoubleRange__input::-ms-fill-upper {
+	background: transparent;
+}
+
+.superDoubleRange__input:focus::-ms-fill-lower,
+.superDoubleRange__input:focus::-ms-fill-upper {
+	background: transparent;
+}
+
+.superDoubleRange__input:focus::-webkit-slider-runnable-track {
+	background-color: transparent;
+}
